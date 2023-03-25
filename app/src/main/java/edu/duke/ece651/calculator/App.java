@@ -3,22 +3,77 @@
  */
 package edu.duke.ece651.calculator;
 
+import java.io.IOException;
+import java.net.URL;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class App extends Application {
-    @Override
-    public void start(Stage stage) {
-        String javaVersion = System.getProperty("java.version");
-        String javafxVersion = System.getProperty("javafx.version");
-        Label l = new Label("Hello, JavaFX " + javafxVersion +
-                            ", running on Java " +
-                            javaVersion + ".");
-        Scene scene = new Scene(new StackPane(l), 640, 480);
-        stage.setScene(scene);
-        stage.show();
+  @Override
+  public void start(Stage stage) {
+    // String javaVersion = System.getProperty("java.version");
+    // String javafxVersion = System.getProperty("javafx.version");
+    // Label l = new Label("Hello, JavaFX " + javafxVersion +
+    // ", running on Java " +
+    // javaVersion + ".");
+    // Scene scene = new Scene(new StackPane(l), 640, 480);
+    // ___________________java and java fx version______________________//
+
+    // _______normal_java_code_to_display________________________//
+    // GridPane gp = new GridPane();
+    // String[] labels = new String[] { "+", "-", "*", "/",
+    // "7", "8", "9",
+    // "4", "5", "6",
+    // "1", "2", "3",
+    // "." };
+    // int rows[] = new int[] { 0, 0, 0, 0,
+    // 1, 1, 1,
+    // 2, 2, 2,
+    // 3, 3, 3,
+    // 4 };
+    // int cols[] = new int[] { 0, 1, 2, 3,
+    // 0, 1, 2,
+    // 0, 1, 2,
+    // 0, 1, 2,
+    // 2 };
+    // for (int i = 0; i < labels.length; i++) {
+    // Button b = new Button(labels[i]);
+    // gp.add(b, cols[i], rows[i]);
+    // b.setMaxWidth(Double.MAX_VALUE);
+    // b.setMaxHeight(Double.MAX_VALUE);
+    // }
+    // Button b = new Button("0");
+    // b.setMaxWidth(Double.MAX_VALUE);
+    // b.setMaxHeight(Double.MAX_VALUE);
+    // gp.add(b, 0, 4, 2, 1);
+    // b = new Button("E\nn\nt\ne\nr");
+    // b.setMaxWidth(Double.MAX_VALUE);
+    // b.setMaxHeight(Double.MAX_VALUE);
+    // gp.add(b, 3, 1, 1, 3);
+    // for (int i = 0; i < 4; i++) {
+    // ColumnConstraints cc = new ColumnConstraints();
+    // cc.setPercentWidth(25);
+    // gp.getColumnConstraints().add(cc);
+    // }
+    // for (int i = 0; i < 5; i++) {
+    // RowConstraints rc = new RowConstraints();
+    // rc.setPercentHeight(20);
+    // gp.getRowConstraints().add(rc);
+    // }
+
+    // _______use____fxml_____________//
+    URL xmlResource = getClass().getResource("/ui/calcbuttons1.xml");
+    try {
+      GridPane gp = FXMLLoader.load(xmlResource);
+      Scene scene = new Scene(gp, 640, 480);
+      stage.setScene(scene);
+      stage.show();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
     }
+  }
 }
