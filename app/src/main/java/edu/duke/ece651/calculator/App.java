@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class App extends Application {
   @Override
-  public void start(Stage stage) {
+  public void start(Stage stage) throws IOException {
     // String javaVersion = System.getProperty("java.version");
     // String javafxVersion = System.getProperty("javafx.version");
     // Label l = new Label("Hello, JavaFX " + javafxVersion +
@@ -66,14 +66,12 @@ public class App extends Application {
     // }
 
     // _______use____fxml_____________//
-    URL xmlResource = getClass().getResource("/ui/calcbuttons1.xml");
-    try {
-      GridPane gp = FXMLLoader.load(xmlResource);
-      Scene scene = new Scene(gp, 640, 480);
-      stage.setScene(scene);
-      stage.show();
-    } catch (IOException ioe) {
-      ioe.printStackTrace();
-    }
+    URL xmlResource = getClass().getResource("/ui/calc-monolithic-controller.xml");
+    GridPane gp = FXMLLoader.load(xmlResource);
+    Scene scene = new Scene(gp, 640, 480);
+    URL cssResource = getClass().getResource("/ui/calcbuttons.css");
+    scene.getStylesheets().add(cssResource.toString());
+    stage.setScene(scene);
+    stage.show();
   }
 }

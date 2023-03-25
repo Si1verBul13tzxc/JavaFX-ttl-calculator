@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<GridPane xmlns:fx="http://javafx.com/fxml">
+  <columnConstraints>
+        <ColumnConstraints percentWidth="70" />
+        <ColumnConstraints percentWidth="30" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="90" />
+        <RowConstraints percentHeight="5" />
+        <RowConstraints percentHeight="5" />
+    </rowConstraints> 
+  <children>
+    <fx:include source="calcbuttons.xml" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="2"/>
+    <ListView fx:id="rpnstack" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+    <Label fx:id="numlabel" text="Current number: " GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Label fx:id="currnum" text="0" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+  </children>
+</GridPane>

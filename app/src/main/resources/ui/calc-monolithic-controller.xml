@@ -10,7 +10,7 @@
 
 
 <GridPane xmlns:fx="http://javafx.com/fxml"
-          fx:controller="edu.duke.ece651.calc.controller.NumButtonController">
+          fx:controller="edu.duke.ece651.calculator.controller.NumButtonController">
   <columnConstraints>
         <ColumnConstraints percentWidth="60" />
         <ColumnConstraints percentWidth="20" />
