@@ -5,12 +5,14 @@ package edu.duke.ece651.calculator;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+import org.testfx.matcher.control.ListViewMatchers;
 import org.testfx.matcher.control.TextInputControlMatchers;
 
 import javafx.stage.Stage;
@@ -25,10 +27,7 @@ class AppTest {
     a.start(stage);
   }
 
-  @Test
-  void test_numButtons(FxRobot robot) {
-    FxAssert.verifyThat("#currentNumber", TextInputControlMatchers.hasText(""));
-    String str = "123450.6789";
+  private void clickButtonsFor(String str, FxRobot robot) {
     for (char digit : str.toCharArray()) {
       if (digit == '.') {
         robot.clickOn("#dot");
@@ -36,6 +35,59 @@ class AppTest {
         robot.clickOn("" + digit);
       }
     }
-    FxAssert.verifyThat("#currentNumber", TextInputControlMatchers.hasText(str));
   }
+
+  @Test
+  void test_numButtons(FxRobot robot) {
+    FxAssert.verifyThat("#currentNumber", TextInputControlMatchers.hasText(""));
+    String str = "123450.6789";
+    clickButtonsFor(str, robot);
+    FxAssert.verifyThat("#currentNumber", TextInputControlMatchers.hasText(str));
+    robot.clickOn("#Enter");
+    FxAssert.verifyThat("#currentNumber", TextInputControlMatchers.hasText(""));
+    FxAssert.verifyThat("#rpnstack", ListViewMatchers.hasItems(1));
+    FxAssert.verifyThat("#rpnstack", ListViewMatchers.hasListCell(123450.6789));
+  }
+
+  void test_button_helper(FxRobot robot, String btnName, String inp1,
+      String inp2, double ans, boolean useEnter) {
+    clickButtonsFor(inp1, robot);
+    robot.clickOn("#Enter");
+    clickButtonsFor(inp2, robot);
+    if (useEnter) {
+      robot.clickOn("#Enter");
+    }
+    robot.clickOn(btnName);
+    FxAssert.verifyThat("#currentNumber", TextInputControlMatchers.hasText(""));
+    FxAssert.verifyThat("#rpnstack", ListViewMatchers.hasItems(1));
+    FxAssert.verifyThat("#rpnstack", ListViewMatchers.hasListCell(ans));
+  }
+
+  @Test
+  void test_plusButton_wo_enter(FxRobot robot) {
+    test_button_helper(robot, "#plus", "123.5", "234.25", 357.75, false);
+  }
+  
+  @Test
+  void test_plusButton_w_enter(FxRobot robot) {
+    test_button_helper(robot, "#plus", "93.7", "24.3", 118, true);
+  }
+
+  @Test
+  void test_minus(FxRobot robot){
+    test_button_helper(robot, "#minus", "93.7", "24.3", 69.4, true);
+  }
+
+    @Test
+  void test_times(FxRobot robot){
+    test_button_helper(robot, "#times", "93", "5", 465, true);
+  }
+
+    @Test
+  void test_div(FxRobot robot){ 
+    test_button_helper(robot, "#div", "15", "5", 3, true);
+  }
+
+
+  
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Button?>
 
 <GridPane xmlns:fx="http://javafx.com/fxml"
-          fx:controller="edu.duke.ece651.calc.controller.NumButtonController">
+          fx:controller="edu.duke.ece651.calculator.controller.NumButtonController">
   <columnConstraints>
     <ColumnConstraints percentWidth="25" />
     <ColumnConstraints percentWidth="25" />
@@ -20,10 +20,10 @@
     <RowConstraints percentHeight="20" />
   </rowConstraints> 
   <children>
-    <Button text="+" fx:id="plus" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="expandable"/>
-    <Button text="-" fx:id="minus" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="expandable"/>
-    <Button text="*" fx:id="times" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="expandable"/>
-    <Button text="/" fx:id="div" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="expandable"/>
+    <Button text="+" fx:id="plus" GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="expandable" onAction="#onPlus"/>
+    <Button text="-" fx:id="minus" GridPane.rowIndex="0" GridPane.columnIndex="1" styleClass="expandable" onAction="#onMinus"/>
+    <Button text="*" fx:id="times" GridPane.rowIndex="0" GridPane.columnIndex="2" styleClass="expandable" onAction="#onTimes"/>
+    <Button text="/" fx:id="div" GridPane.rowIndex="0" GridPane.columnIndex="3" styleClass="expandable" onAction="#onDivide"/>
     <Button text="7"
             GridPane.rowIndex="1"
             GridPane.columnIndex="0"
@@ -44,7 +44,8 @@
             GridPane.rowIndex="1"
             GridPane.columnIndex="3"
             GridPane.rowSpan="3"
-            styleClass="expandable"/>
+            styleClass="expandable"
+            onAction="#onEnter"/>
     <Button text="4"
             GridPane.rowIndex="2"
             GridPane.columnIndex="0"

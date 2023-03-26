@@ -8,7 +8,7 @@
 
 
 
-<GridPane xmlns:fx="http://javafx.com/fxml">
+<GridPane xmlns:fx="http://javafx.com/fxml" fx:controller="edu.duke.ece651.calculator.controller.CalculatorController">
   <columnConstraints>
         <ColumnConstraints percentWidth="60" />
         <ColumnConstraints percentWidth="20" />
@@ -19,7 +19,8 @@
         <RowConstraints percentHeight="10" />
     </rowConstraints> 
     <children>
-      <fx:include source="calc-buttons-split.xml"
+      <fx:include fx:id="numButton"
+                  source="calc-buttons-split.xml"
                   GridPane.rowIndex="0"
                   GridPane.columnIndex="0"
                   GridPane.rowSpan="2"/>

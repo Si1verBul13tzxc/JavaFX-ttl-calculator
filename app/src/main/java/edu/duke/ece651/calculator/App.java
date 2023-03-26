@@ -5,10 +5,15 @@ package edu.duke.ece651.calculator;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 
+import edu.duke.ece651.calculator.controller.CalculatorController;
+import edu.duke.ece651.calculator.controller.NumButtonController;
+import edu.duke.ece651.calculator.model.RPNStack;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -66,12 +71,24 @@ public class App extends Application {
     // }
 
     // _______use____fxml_____________//
-    URL xmlResource = getClass().getResource("/ui/calc-monolithic-controller.xml");
-    GridPane gp = FXMLLoader.load(xmlResource);
+    RPNStack model = new RPNStack();
+    URL xmlResource = getClass().getResource("/ui/calc-split.xml");
+    FXMLLoader loader = new FXMLLoader(xmlResource);
+    HashMap<Class<?>, Object> controllers = new HashMap<>();
+    controllers.put(NumButtonController.class, new NumButtonController(model));
+    controllers.put(CalculatorController.class, new CalculatorController());
+    loader.setControllerFactory((c) -> {
+      return controllers.get(c);
+    });
+    GridPane gp = loader.load();
     Scene scene = new Scene(gp, 640, 480);
     URL cssResource = getClass().getResource("/ui/calcbuttons.css");
     scene.getStylesheets().add(cssResource.toString());
+    @SuppressWarnings("unchecked")
+    ListView<Double> operands = (ListView<Double>) scene.lookup("#rpnstack");
+    operands.setItems(model.getList());
     stage.setScene(scene);
+    Thread.setDefaultUncaughtExceptionHandler(new ErrorReporter());
     stage.show();
   }
 }
